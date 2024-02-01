@@ -26,9 +26,9 @@
     "picocolors": "1.0.0"
   },
   "devDependencies": {
-    "standard": "^17.1.0"
+    "eslint": "^8.56.0"
   },
   "eslintConfig": {
-    "extends": "standard"
+    "extends": "./node_modules/standard/eslintrc.json"
   }
 }
