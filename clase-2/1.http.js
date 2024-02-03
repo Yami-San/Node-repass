@@ -1,7 +1,7 @@
 const http = require('node:http') // protocolo HTTP
 const fs = require('node:fs')
 
-const desiredPort = process.env.PORT ?? 1234
+const desiredPort = process.env.PORT ?? 1920
 
 const processRequest = (req, res) => {
   res.setHeader('Content-Type', 'text/html; charset=utf-8')
