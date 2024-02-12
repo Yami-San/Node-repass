@@ -8,7 +8,7 @@ app.disable('x-powered-by')
 
 app.use('/movies', moviesRouter)
 
-const PORT = process.env.PORT ?? 1234
+const PORT = process.env.PORT ?? 1920
 
 app.listen(PORT, () => {
   console.log(`server listening on port http://localhost:${PORT}`)

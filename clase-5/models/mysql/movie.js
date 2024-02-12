@@ -1,5 +1,6 @@
+import e from 'express'
 import mysql from 'mysql2/promise'
-
+import { object } from 'zod'
 const DEFAULT_CONFIG = {
   host: 'localhost',
   user: 'root',
@@ -12,15 +13,15 @@ const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
 const connection = await mysql.createConnection(connectionString)
 
 export class MovieModel {
+  //get movie title by genre
   static async getAll ({ genre }) {
-    console.log('getAll')
 
     if (genre) {
       const lowerCaseGenre = genre.toLowerCase()
 
       // get genre ids from database table using genre names
       const [genres] = await connection.query(
-        'SELECT id, name FROM genre WHERE LOWER(name) = ?;',
+        'SELECT id FROM genre WHERE LOWER(name) = ?;',
         [lowerCaseGenre]
       )
 
@@ -30,11 +31,11 @@ export class MovieModel {
       // get the id from the first genre result
       const [{ id }] = genres
 
-      // get all movies ids from database table
-      // la query a movie_genres
-      // join
-      // y devolver resultados..
-      return []
+      const [movies] = await connection.query(
+        `SELECT title FROM movie LEFT JOIN movie_genres ON movie.id = movie_genres.movie_id AND movie_genres.genre_id = ${id};`
+      )
+      if (movies.length === 0) return []
+      return movies
     }
 
     const [movies] = await connection.query(
@@ -97,9 +98,34 @@ export class MovieModel {
 
   static async delete ({ id }) {
     // ejercio fácil: crear el delete
+    const [succes_delete] = await connection.query(
+      'DELETE FROM movie WHERE id = UUID_TO_BIN(?);',
+      [id]
+    )
+    return succes_delete
   }
 
   static async update ({ id, input }) {
     // ejercicio fácil: crear el update
+    const {
+      title,
+      year,
+      duration,
+      director,
+      rate,
+      poster
+    } = input
+    //The genre is not update because takes so much time to develop, this is a practical exercise
+    try {
+      const properties = Object.entries(input)
+      for (const property of properties) {
+        await connection.query(
+         `UPDATE movie SET ${property[0]} = ? WHERE id = UUID_TO_BIN(?);`,
+         [property[1], id]
+        )
+      }
+    } catch (error) {
+      throw new Error('error updating movie')
+    }
   }
 }

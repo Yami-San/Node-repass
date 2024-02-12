@@ -1,14 +1,14 @@
 ### Recuperar todas las películas
-GET http://localhost:1234/movies
+GET http://localhost:1920/movies
 
 ### Recuperar una película por id
-GET http://localhost:1234/movies/1990df63-4da7-11ee-aedf-32323730fdc3
+GET http://localhost:1920/movies/010cfadf-c87d-11ee-99cf-244bfe5cf609
 
 ### Recuperar todas las películas por un género
-GET http://localhost:1234/movies?genre=ACTION
+GET http://localhost:1920/movies?genre=Drama
 
 ### Crear una película con POST
-POST http://localhost:1234/movies
+POST http://localhost:1920/movies
 Content-Type: application/json
 
 {
@@ -25,12 +25,13 @@ Content-Type: application/json
 }
 
 ### Borrar una película
-DELETE http://localhost:1234/movies/64d4d8825d614a4ec5984ae3
+DELETE http://localhost:1920/movies/010cfadf-c87d-11ee-99cf-244bfe5cf609
 
 ### Actualizar una película
-PATCH http://localhost:1234/movies/64d4da882f83563ab4f40632
+PATCH http://localhost:1920/movies/010cfadf-c87d-11ee-99cf-244bfe5cf609
 Content-Type: application/json
 
 {
-  "year": 2022
+  "year": 2022,
+  "title": "change title"
 }

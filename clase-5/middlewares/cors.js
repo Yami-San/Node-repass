@@ -2,7 +2,7 @@ import cors from 'cors'
 
 const ACCEPTED_ORIGINS = [
   'http://localhost:8080',
-  'http://localhost:1234',
+  'http://localhost:1920',
   'https://movies.com',
   'https://midu.dev'
 ]
